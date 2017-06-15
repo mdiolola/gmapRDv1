@@ -1,0 +1,114 @@
+@model gmapRDv1.Models.Practices
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Practices</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ZipCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Lat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lat)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Lon)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Lon)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Info)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Info)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactNumbers)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ContactNumbers)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Hours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Services)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Services)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Promotion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Promotion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Provider1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Provider1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Provider2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Provider2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BrandId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BrandId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PracticeId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
