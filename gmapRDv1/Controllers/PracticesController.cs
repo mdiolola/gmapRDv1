@@ -83,8 +83,6 @@ namespace gmapRDv1.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Lat = practices.Lat;
-            ViewBag.Lon = practices.Lon;
 
             string markers = "[{";
             markers += string.Format("'title': '{0}',", practices.Name);
@@ -93,7 +91,6 @@ namespace gmapRDv1.Controllers
             markers += string.Format("'description': '{0}'", practices.Address);
             markers += "}];";
             ViewBag.Markers = markers;
-
             return View(practices);
         }
 
@@ -111,8 +108,6 @@ namespace gmapRDv1.Controllers
 
             if (ModelState.IsValid)
             {
-                // practices.Lat = ;
-                //  practices.Lon = ;
                 try
                 {
                     _context.Update(practices);
@@ -168,17 +163,43 @@ namespace gmapRDv1.Controllers
             return _context.Practices.Any(e => e.PracticeId == id);
         }
 
-        public IRestResponse GetAddressDetails(string address)
+        public IRestResponse getAddressDetails(string address)
         {
             // var apiToken = ConfigurationManager.AppSettings["okta:ApiToken"];
             var baseUri = googlepath;
-            var client = new RestClient(baseUri);
             var request = new RestRequest(Method.GET);
-            var client = new RestClient(baseUri + "?address=" + address +"&key=" + apikey);
-            IRestResponse response = client.Execute<RootObject(request);
+            var googleobject = new googleObject();
+            var client = new RestClient(baseUri + "address=" + address + "&key=" + apikey);
+            var response = new RestResponse();
+
+            Task.Run(async () =>
+            {
+                response = await GetResponseContentAsync(client, request) as RestResponse;
+            }).Wait();
             return response;
         }
 
+        public static Task<IRestResponse> GetResponseContentAsync(RestClient theClient, RestRequest theRequest)
+        {
+            var tcs = new TaskCompletionSource<IRestResponse>();
+            theClient.ExecuteAsync(theRequest, response =>
+            {
+                tcs.SetResult(response);
+            });
+            return tcs.Task;
+        }
 
+         public string ProcessAddress(long id, string Address, [Bind("PracticeId,ZipCode,Lat,Lon,Title,Info,Name,Address,ContactNumbers,Hours,Services,Promotion,BrandId,Provider1,Provider2,Brand,UpdatedAt,CreatedAt")] Practices practices)
+        {
+            //GetAddressDetails
+            RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
+            IRestResponse output;
+            output = getAddressDetails(Address);
+            googleObject googleDetails = deserial.Deserialize<googleObject>(output);
+            ViewBag.Lat = Convert.ToDecimal(googleDetails.results[0].geometry.location.lat);
+            ViewBag.Lon = Convert.ToDecimal(googleDetails.results[0].geometry.location.lng);
+            return ViewBag();
+
+        }
     }
 }

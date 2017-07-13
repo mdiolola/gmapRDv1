@@ -7,12 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using gmapRDv1.Models;
-//using Amazon.Runtime.CredentialManagement;
-using Amazon;
 
-namespace gmapRDv1
+namespace dynamoApi
 {
     public class Startup
     {
@@ -33,12 +29,6 @@ namespace gmapRDv1
         {
             // Add framework services.
             services.AddMvc();
-            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
-            var dynamoOptions = Configuration.GetAWSOptions();
-    
-
-            var connection = @"Data Source=LTOPIITSS2391;Initial Catalog=Dev_EOA_EcpL;Integrated Security=True";
-            services.AddDbContext<Dev_EOA_EcpLContext>(sqloptions => sqloptions.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,24 +37,7 @@ namespace gmapRDv1
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
-            app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }

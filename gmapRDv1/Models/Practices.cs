@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace gmapRDv1.Models
 {
     public partial class Practices
@@ -94,7 +93,7 @@ namespace gmapRDv1.Models
         public List<string> types { get; set; }
     }
 
-    public class RootObject
+    public class googleObject
     {
         public List<Result> results { get; set; }
         public string status { get; set; }
